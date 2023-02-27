@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 class Main {
@@ -8,22 +9,27 @@ class Main {
         while (true) {
             System.out.println();
             printMenu();
+            int command;
 
-            int command = scanner.nextInt();
-        if (command == 1) {
-            stepTracker.addNewNumberStepsPerDay();
-        } else if (command == 2) {
-            stepTracker.changeStepGoal();
-        } else if (command == 3) {
-            stepTracker.printStatistic();
-        } else if (command == 0) {
-            System.out.println("Выход");
-            break;
-        } else {
-            System.out.println("Такой команды нет");
+            try {
+                command = scanner.nextInt();
+                if (command == 1) {
+                    stepTracker.addNewNumberStepsPerDay();
+                } else if (command == 2) {
+                    stepTracker.changeStepGoal();
+                } else if (command == 3) {
+                    stepTracker.printStatistic();
+                } else if (command == 0) {
+                    System.out.println("Выход");
+                    return;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Введен некорректный символ");
+            }
         }
-        }
+
     }
+
 
     static void printMenu() {
         System.out.println("Что вы хотите сделать?");
@@ -32,7 +38,5 @@ class Main {
         System.out.println("3 — Напечатать статистику за определённый месяц");
         System.out.println("0 — Выйти из приложения");
         System.out.println();
-
-
     }
 }
