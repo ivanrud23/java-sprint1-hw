@@ -5,14 +5,16 @@ class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         StepTracker stepTracker = new StepTracker(scanner);
+        System.out.println();
 
         while (true) {
-            System.out.println();
             printMenu();
             int command;
+            String line;
 
             try {
-                command = scanner.nextInt();
+                line = scanner.nextLine();
+                command = Integer.parseInt(line);
                 if (command == 1) {
                     stepTracker.addNewNumberStepsPerDay();
                 } else if (command == 2) {
@@ -23,11 +25,10 @@ class Main {
                     System.out.println("Выход");
                     return;
                 }
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Введен некорректный символ");
             }
         }
-
     }
 
 
