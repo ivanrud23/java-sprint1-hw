@@ -40,9 +40,4 @@ class MonthData {
         }
         return finalSeries;
     }
-
-
-
-
-
 }

@@ -6,26 +6,23 @@ class StepTracker {
     int goalByStepsPerDay;
     Converter converter = new Converter();
 
-
     StepTracker (Scanner scan){
         scanner = scan;
         goalByStepsPerDay = 10000;
 
-
         for (int i = 0; i < monthToData.length; i ++) {
             monthToData[i] = new MonthData();
-
-
         }
     }
 
     void addNewNumberStepsPerDay() {
+        int monthNumber = Main.enterMonth();
+        if (monthNumber < 1 || monthNumber > 12) {
+            System.out.println("Введён некорректный номер месяца.");
+            return;
+        }
 
-        System.out.println("Введите номер месяца");
-        int monthNumber = scanner.nextInt();
-
-        System.out.println("Введите день от 1 до 30");
-        int dayNumber = scanner.nextInt();
+        int dayNumber = Main.enterDay();
         if (dayNumber < 1 || dayNumber > 30) {
             System.out.println("Введён некорректный день.");
             return;
@@ -34,33 +31,27 @@ class StepTracker {
         System.out.println("Введите количество шагов");
         int stepsInDay = scanner.nextInt();
         if (stepsInDay < 1) {
-            System.out.println("Введёно некорректное количсетво шагов.");
+            System.out.println("Введено некорректное количсетво шагов.");
             return;
         }
+
         MonthData monthData = monthToData[monthNumber - 1];
         monthData.days[dayNumber - 1] = stepsInDay;
-
-
-
     }
 
     void changeStepGoal() {
         System.out.println("Какое количество шагов вы планируете сделать?");
         int newGoal = scanner.nextInt();
         if (newGoal < 1) {
-            System.out.println("Введёно некорректное количество шагов.");
+            System.out.println("Введено некорректное количество шагов.");
             return;
         }
         goalByStepsPerDay = newGoal;
     }
 
     void printStatistic() {
-        System.out.println("Введите номер месяца");
-        int month = scanner.nextInt();
-        if (month < 1) {
-            System.out.println("Введён некорректный номер месяца.");
-            return;
-        } else if (month > 12) {
+        int month = Main.enterMonth();
+        if (month < 1 || month > 12) {
             System.out.println("Введён некорректный номер месяца.");
             return;
         }
@@ -73,14 +64,4 @@ class StepTracker {
         System.out.println(converter.convertStepsToKilocalories(monthData.sumStepsFromMonth(monthData.days)) + " - количество сожжённых килокалорий");
         System.out.println(monthData.bestSeries(monthData.days, goalByStepsPerDay) + " - лучшая серия");
     }
-/*
-    int enterMonth (int monthNumber) {
-        if (monthNumber < 1 || monthNumber > 12) {
-            System.out.println("Введён некорректный номер месяца.");
-            return;
-        }
-        return monthNumber;
-    }
-*/
-
 }
