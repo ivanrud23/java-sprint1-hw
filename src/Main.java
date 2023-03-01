@@ -10,9 +10,9 @@ class Main {
         while (true) {
             System.out.println();
             printMenu();
-            int command;
 
-            command = scanUserInputSafely(scanner);
+
+            int command = scanUserInputSafely(scanner);
             if (command == 1) {
                 stepTracker.addNewNumberStepsPerDay();
             } else if (command == 2) {
@@ -22,10 +22,8 @@ class Main {
             } else if (command == 0) {
                 System.out.println("Выход");
                 return;
-            } else if (command == -1){
-                System.out.println("Введен некорректный символ");
             } else {
-                System.out.println("Введен некорректный символ");
+                System.out.println("Введена неизвестная команда");
             }
         }
     }
@@ -38,22 +36,13 @@ class Main {
         System.out.println("0 — Выйти из приложения");
         System.out.println();
     }
-    static int enterMonth () {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите номер месяца от 1 до 12");
-        return scanner.nextInt();
-    }
-    static int enterDay () {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите день от 1 до 30");
-        return scanner.nextInt();
-    }
+
     static int scanUserInputSafely(Scanner scanner) {
-        try {
-            return scanner.nextInt();
-        } catch (InputMismatchException ime) {
-            System.out.println("Введен некорректный символ");
-            return -1;
-        }
+            try {
+                return scanner.nextInt();
+            } catch (InputMismatchException ime) {
+                scanner.nextLine();
+                return -1;
+            }
     }
 }
